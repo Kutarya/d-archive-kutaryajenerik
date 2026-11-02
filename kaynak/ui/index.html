@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="tr" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: kty-media:; media-src 'self' kty-media:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-src 'none'"
+    />
+    <title>Kutarya Jenerik</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="i-play" viewBox="0 0 24 24">
+          <path d="m9 5 10 7-10 7V5Z" />
+        </symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14" />
+        </symbol>
+        <symbol id="i-search" viewBox="0 0 24 24">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <path d="m16 16 5 5" />
+        </symbol>
+        <symbol id="i-film" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="16" rx="2" />
+          <path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4" />
+        </symbol>
+        <symbol id="i-queue" viewBox="0 0 24 24">
+          <path d="M9 6h12M9 12h12M9 18h12M3 6h1M3 12h1M3 18h1" />
+        </symbol>
+        <symbol id="i-folder" viewBox="0 0 24 24">
+          <path
+            d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"
+          />
+        </symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24">
+          <rect x="9" y="2" width="6" height="13" rx="3" />
+          <path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8" />
+        </symbol>
+        <symbol id="i-music" viewBox="0 0 24 24">
+          <path d="M9 18V5l12-3v13M9 9l12-3" />
+          <ellipse cx="6" cy="18" rx="3" ry="3" />
+          <ellipse cx="18" cy="15" rx="3" ry="3" />
+        </symbol>
+        <symbol id="i-check" viewBox="0 0 24 24">
+          <path d="m5 12 4 4L19 6" />
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M4 12h16m-6-6 6 6-6 6" />
+        </symbol>
+        <symbol id="i-back" viewBox="0 0 24 24">
+          <path d="M20 12H4m6-6-6 6 6 6" />
+        </symbol>
+        <symbol id="i-save" viewBox="0 0 24 24">
+          <path
+            d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12l4 4v12a2 2 0 0 1-2 2Z"
+          />
+          <path d="M7 3v6h10V3M7 21v-8h10v8" />
+        </symbol>
+        <symbol id="i-help" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M9.2 9a3 3 0 0 1 5.6 1c0 2-3 2-3 4M12 17h.01" />
+        </symbol>
+        <symbol id="i-settings" viewBox="0 0 24 24">
+          <path d="M4 7h16M4 17h16M8 4v6M16 14v6" />
+        </symbol>
+        <symbol id="i-download" viewBox="0 0 24 24">
+          <path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24">
+          <path d="M20 15.2A9 9 0 0 1 8.8 4 9 9 0 1 0 20 15.2Z" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.4 1.4M17.6 17.6 19 19M5 19l1.4-1.4M17.6 6.4 19 5"
+          />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="m6 6 12 12M6 18 18 6" />
+        </symbol>
+        <symbol id="i-clipboard" viewBox="0 0 24 24">
+          <rect x="5" y="5" width="14" height="17" rx="2" />
+          <rect x="9" y="2" width="6" height="6" rx="1" />
+        </symbol>
+        <symbol id="i-spark" viewBox="0 0 24 24">
+          <path
+            d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"
+          />
+        </symbol>
+      </defs>
+    </svg>
+    <header class="app-header">
+      <button class="brand" id="brand-home" title="Yeni kurgu ekranına dön">
+        <span class="brand-mark"
+          ><svg class="icon"><use href="#i-play" /></svg></span
+        ><span
+          ><strong>Kutarya <b>Jenerik</b></strong
+          ><small>Şarkı. Mesaj. Hazır video.</small></span
+        >
+      </button>
+      <nav class="header-nav" aria-label="Uygulama">
+        <button id="open-jobs" class="quiet-button">
+          <svg class="icon"><use href="#i-queue" /></svg>Kurgularım
+          <span id="queue-count" class="count-badge hidden">0</span></button
+        ><button
+          id="open-help"
+          class="icon-button"
+          title="Nasıl kullanılır?"
+          aria-label="Nasıl kullanılır?"
+        >
+          <svg class="icon"><use href="#i-help" /></svg></button
+        ><button id="theme-toggle" class="theme-button" title="Koyu temaya geç">
+          <svg class="icon"><use href="#i-moon" /></svg><span>Koyu tema</span>
+        </button>
+      </nav>
+      <div class="window-buttons">
+        <button id="minimize" aria-label="Küçült">−</button
+        ><button id="maximize" aria-label="Büyüt veya küçült">□</button
+        ><button id="close" aria-label="Kapat">×</button>
+      </div>
+    </header>
+    <div class="app-body">
+      <div id="wizard-header" class="wizard-header">
+        <nav class="step-rail" aria-label="Kurgu adımları">
+          <button
+            id="step-song"
+            data-step="1"
+            class="current"
+            aria-current="step"
+          >
+            <b>1</b><span>Şarkı</span></button
+          ><i></i
+          ><button id="step-speech" data-step="2" disabled>
+            <b>2</b><span>Jenerik</span></button
+          ><i></i
+          ><button id="step-bg" data-step="3" disabled>
+            <b>3</b><span>Fon ve geçişler</span></button
+          ><i></i
+          ><button id="step-result" data-step="4" disabled>
+            <b>4</b><span>Kontrol ve sonuç</span>
+          </button>
+        </nav>
+        <details class="project-menu">
+          <summary aria-label="Kurgu ayarları">⋯</summary>
+          <div>
+            <button id="save-project">
+              <svg class="icon"><use href="#i-save" /></svg>Ayarları şablon
+              olarak kaydet</button
+            ><button id="load-project">
+              <svg class="icon"><use href="#i-folder" /></svg>Kaydedilmiş
+              şablonu aç
+            </button>
+          </div>
+        </details>
+      </div>
+      <main id="main-scroll">
+        <section id="editor-view">
+          <section
+            class="wizard-panel"
+            id="song-screen"
+            data-panel="1"
+            aria-labelledby="song-heading"
+          >
+            <div class="page-heading">
+              <span class="step-caption">ADIM 1 / 3 · ŞARKI</span>
+              <h1 id="song-heading" tabindex="-1">Önce şarkınızı seçin.</h1>
+              <p>Şarkıyı bulun. Jeneriği tam ortasına yerleştirelim.</p>
+            </div>
+            <div id="song-card" class="surface source-surface">
+              <div class="song-list-heading">
+                <div>
+                  <h2>Şarkılarınız</h2>
+                  <p>
+                    Her kutuya bir şarkı ekleyin. Her birine ayrı jenerik
+                    hazırlayacağız.
+                  </p>
+                </div>
+                <span id="source-count" class="muted">1 / 200 şarkı</span>
+              </div>
+              <div id="song-list"></div>
+              <div class="add-song-actions">
+                <button id="add-song" class="primary-button">
+                  <svg class="icon"><use href="#i-plus" /></svg>Şarkı ekle</button
+                ><button id="add-local-songs" class="text-button">
+                  <svg class="icon"><use href="#i-folder" /></svg>Yerel
+                  dosyaları ekle
+                </button>
+              </div>
+              <p id="song-error" class="field-error hidden" role="alert"></p>
+            </div>
+            <div class="simple-tip">
+              <svg class="icon"><use href="#i-check" /></svg
+              ><span
+                >Şarkının tamamı korunur. Reklam arası sonradan eklenir.</span
+              >
+            </div>
+          </section>
+          <section
+            class="wizard-panel hidden"
+            id="speech-screen"
+            data-panel="2"
+            aria-labelledby="speech-heading"
+          >
+            <div class="page-heading">
+              <span class="step-caption">ADIM 2 / 3 · JENERİK</span>
+              <h1 id="speech-heading" tabindex="-1">Mesajınız ne söylesin?</h1>
+              <p>
+                Metninizi seslendirelim veya hazır ses dosyanızı kullanalım.
+              </p>
+            </div>
+            <div class="surface narration-navigation">
+              <div>
+                <strong id="speech-for">1. şarkının jeneriği</strong
+                ><span id="narration-progress" class="muted"
+                  >0 / 1 jenerik hazır</span
+                >
+              </div>
+              <div class="narration-navigation-controls">
+                <button
+                  id="narration-previous"
+                  class="icon-button"
+                  aria-label="Önceki şarkının jeneriği"
+                >
+                  <svg class="icon"><use href="#i-back" /></svg></button
+                ><select
+                  id="narration-item"
+                  aria-label="Jeneriği düzenlenecek şarkı"
+                ></select
+                ><button
+                  id="narration-next"
+                  class="icon-button"
+                  aria-label="Sonraki şarkının jeneriği"
+                >
+                  <svg class="icon"><use href="#i-arrow" /></svg>
+                </button>
+              </div>
+              <button id="copy-narration" class="text-button hidden">
+                Bu jeneriği diğer şarkılara da kopyala
+              </button>
+            </div>
+            <div id="speech-card" class="surface">
+              <div
+                class="source-tabs two-tabs"
+                role="tablist"
+                aria-label="Jenerik nasıl hazırlanacak?"
+              >
+                <button
+                  id="text-tab"
+                  class="selected"
+                  role="tab"
+                  aria-selected="true"
+                >
+                  <svg class="icon"><use href="#i-mic" /></svg>Metni seslendir</button
+                ><button id="file-tab" role="tab" aria-selected="false">
+                  <svg class="icon"><use href="#i-folder" /></svg>Hazır ses
+                  dosyam var
+                </button>
+              </div>
+              <div id="text-source">
+                <div class="narration-grid">
+                  <div class="jingle-block">
+                    <label class="field-label" for="jingle-text"
+                      >Okunacak metin</label
+                    ><textarea
+                      id="jingle-text"
+                      class="jingle-input"
+                      rows="3"
+                      placeholder="Güzel fırsatlar, keyifli alışverişler… Depo Marketler!"
+                      maxlength="20000"
+                      aria-describedby="speech-error"
+                    ></textarea>
+                    <div class="text-under">
+                      <span>Kısa cümleler, daha rahat anlaşılır.</span
+                      ><span id="text-count">0 karakter</span>
+                    </div>
+                  </div>
+                  <div class="voice-block">
+                    <div class="voice-heading">
+                      <label class="field-label" for="voice-provider"
+                        >Kim seslendirsin?</label
+                      ><span id="voice-connection" class="muted"
+                        >Türkçe kadın ve erkek sesleri</span
+                      >
+                    </div>
+                    <div class="provider-row">
+                      <select id="voice-provider" aria-label="Ses hizmeti">
+                        <option value="natural">Türkçe doğal sesler</option>
+                        <option value="elevenlabs">ElevenLabs aktörleri</option>
+                        <option value="other">
+                          Diğer diller / Windows sesleri
+                        </option></select
+                      ><button id="eleven-connect" class="quiet-button hidden">
+                        Hesabı bağla
+                      </button>
+                    </div>
+                    <div class="voice-cards" id="voice-cards"></div>
+                    <div id="actor-filters" class="actor-filters hidden">
+                      <input
+                        id="actor-search"
+                        type="search"
+                        placeholder="Aktör adıyla ara"
+                        aria-label="Aktör ara"
+                      /><select id="actor-gender" aria-label="Aktör cinsiyeti">
+                        <option value="all">Tüm aktörler</option>
+                        <option value="Female">Kadın</option>
+                        <option value="Male">Erkek</option>
+                      </select>
+                    </div>
+                    <div class="voice-bottom hidden" id="voice-list">
+                      <select id="voice-select" aria-label="Seslendirme kişisi">
+                        <option value="tr-TR-EmelNeural">Emel · Kadın</option>
+                        <option value="tr-TR-AhmetNeural">
+                          Ahmet · Erkek
+                        </option></select
+                      ><button
+                        id="refresh-voices"
+                        class="icon-button"
+                        title="Ses listesini yenile"
+                        aria-label="Ses listesini yenile"
+                      >
+                        ↻
+                      </button>
+                    </div>
+                    <details id="voice-details" class="inline-details">
+                      <summary>
+                        Okuma hızını ve ses tonunu ayarla
+                        <svg class="icon"><use href="#i-settings" /></svg>
+                      </summary>
+                      <div class="control-grid">
+                        <label for="rate"
+                          >Okuma hızı <output id="rate-value">Normal</output
+                          ><input
+                            id="rate"
+                            type="range"
+                            min="-50"
+                            max="50"
+                            step="5"
+                            value="0"
+                          /><small id="rate-hint"
+                            >Sol: daha yavaş · Sağ: daha hızlı</small
+                          ></label
+                        ><label for="pitch"
+                          >Ses tonu <output id="pitch-value">Normal</output
+                          ><input
+                            id="pitch"
+                            type="range"
+                            min="-30"
+                            max="30"
+                            step="1"
+                            value="0"
+                          /><small id="pitch-hint"
+                            >Sol: kalın · Sağ: ince</small
+                          ></label
+                        >
+                      </div>
+                    </details>
+                  </div>
+                </div>
+                <div class="speech-actions">
+                  <button id="preview-speech" class="quiet-button">
+                    <svg class="icon"><use href="#i-play" /></svg>Sesi oluştur
+                    ve dinle</button
+                  ><span id="speech-duration" class="success-label"></span
+                  ><button id="export-speech" class="text-button">
+                    <svg class="icon"><use href="#i-download" /></svg>Ses
+                    dosyasını al
+                  </button>
+                </div>
+                <p id="voice-note" class="privacy-note"></p>
+              </div>
+              <div id="file-source" class="hidden">
+                <button id="choose-speech" class="file-drop">
+                  <span class="drop-icon"
+                    ><svg class="icon"><use href="#i-mic" /></svg></span
+                  ><strong>Jenerik sesini seçin</strong
+                  ><span>Elinizdeki reklam sesini doğrudan kullanın.</span
+                  ><small>MP3, WAV, M4A, FLAC veya videonun sesi</small>
+                </button>
+                <div id="speech-description" class="file-summary">
+                  Henüz dosya seçilmedi.
+                </div>
+                <button id="listen-file" class="quiet-button hidden">
+                  <svg class="icon"><use href="#i-play" /></svg>Seçtiğim sesi
+                  dinle
+                </button>
+              </div>
+              <p id="speech-error" class="field-error hidden" role="alert"></p>
+            </div>
+          </section>
+          <section
+            class="wizard-panel hidden"
+            id="bg-screen"
+            data-panel="3"
+            aria-labelledby="bg-heading"
+          >
+            <div class="page-heading">
+              <span class="step-caption">ADIM 3 / 3 · FON VE GEÇİŞLER</span>
+              <h1 id="bg-heading" tabindex="-1">Son dokunuşları yapalım.</h1>
+              <p>
+                Fon müziğini seçin. Şarkının nasıl durup devam edeceğini
+                ayarlayın.
+              </p>
+            </div>
+            <div id="bg-card" class="surface">
+              <div class="section-row">
+                <div>
+                  <h2>Jeneriğin arkasında fon müziği</h2>
+                  <p class="muted">
+                    Bütün videolarda ortak kullanılır. Her jeneriğin süresine
+                    göre çalar.
+                  </p>
+                </div>
+                <label class="switch"
+                  ><input id="background-enabled" type="checkbox" /><span
+                    class="switch-track"
+                  ></span
+                  ><b id="bg-switch-label">Kapalı</b></label
+                >
+              </div>
+              <div id="bg-picker" class="bg-select hidden">
+                <span class="media-icon"
+                  ><svg class="icon"><use href="#i-music" /></svg
+                ></span>
+                <div>
+                  <strong id="bg-name">Fon müziği seçin</strong
+                  ><span id="bg-description"
+                    >Bir kez seçin; sonraki videolarda hatırlanır.</span
+                  >
+                </div>
+                <button id="choose-bg" class="quiet-button">Dosya seç</button
+                ><button
+                  id="listen-bg"
+                  class="icon-button hidden"
+                  title="Fonu dinle"
+                  aria-label="Fonu dinle"
+                >
+                  <svg class="icon"><use href="#i-play" /></svg>
+                </button>
+              </div>
+              <p id="no-bg-note" class="muted no-bg-note">
+                Fon istemiyorsanız kapalı bırakıp devam edin.
+              </p>
+              <p id="bg-error" class="field-error hidden" role="alert"></p>
+            </div>
+            <div class="surface transition-surface">
+              <div class="section-row">
+                <div>
+                  <h2>Şarkıdan reklama geçiş</h2>
+                  <p class="muted">
+                    Şarkı kısılır, görüntü kararır. Jenerikten sonra ikisi geri
+                    açılır.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="transition-choices"
+                role="group"
+                aria-label="Geçiş türü"
+              >
+                <button data-transition="1" class="selected">
+                  <strong>Yumuşak</strong><span>1 saniyede geçer</span
+                  ><small>Önerilen</small></button
+                ><button data-transition="0.4">
+                  <strong>Hızlı</strong><span>0,4 saniyede geçer</span></button
+                ><button data-transition="0">
+                  <strong>Doğrudan</strong><span>Beklemeden geçer</span>
+                </button>
+              </div>
+              <details id="advanced" class="inline-details">
+                <summary>
+                  Geçişleri ve sesleri kendim ayarlayayım
+                  <svg class="icon"><use href="#i-settings" /></svg>
+                </summary>
+                <div class="advanced-body">
+                  <h3>Reklama girerken</h3>
+                  <div class="control-grid">
+                    <label for="audio-fade-out"
+                      >Şarkının sesi kaç saniyede kısılsın?
+                      <output id="audio-fade-out-value">1 sn</output
+                      ><input
+                        id="audio-fade-out"
+                        type="range"
+                        min="0"
+                        max="3"
+                        step="0.1"
+                        value="1"
+                      /><small>0 saniye: ses hemen durur.</small></label
+                    ><label for="video-fade-out"
+                      >Ekran kaç saniyede kararsın?
+                      <output id="video-fade-out-value">1 sn</output
+                      ><input
+                        id="video-fade-out"
+                        type="range"
+                        min="0"
+                        max="3"
+                        step="0.1"
+                        value="1"
+                      /><small
+                        >0 saniye: hemen siyah ekrana geçer.</small
+                      ></label
+                    >
+                  </div>
+                  <h3>Şarkıya dönerken</h3>
+                  <div class="control-grid">
+                    <label for="audio-fade-in"
+                      >Şarkının sesi kaç saniyede açılsın?
+                      <output id="audio-fade-in-value">1 sn</output
+                      ><input
+                        id="audio-fade-in"
+                        type="range"
+                        min="0"
+                        max="3"
+                        step="0.1"
+                        value="1"
+                      /><small
+                        >Ses, şarkının kaldığı yerden yükselir.</small
+                      ></label
+                    ><label for="video-fade-in"
+                      >Görüntü kaç saniyede açılsın?
+                      <output id="video-fade-in-value">1 sn</output
+                      ><input
+                        id="video-fade-in"
+                        type="range"
+                        min="0"
+                        max="3"
+                        step="0.1"
+                        value="1"
+                      /><small>Siyah ekran yavaşça şarkıya döner.</small></label
+                    >
+                  </div>
+                  <h3>Sesler ne kadar yüksek olsun?</h3>
+                  <div class="control-grid">
+                    <label for="voice-gain"
+                      >Jenerik sesi <output id="voice-gain-value">153%</output
+                      ><input
+                        id="voice-gain"
+                        type="range"
+                        min="-12"
+                        max="12"
+                        step="0.1"
+                        value="3.7"
+                      /><small
+                        >Konuşmayı daha yüksek duymak için sağa kaydırın.</small
+                      ></label
+                    ><label for="bg-gain"
+                      >Fon müziği <output id="bg-gain-value">13%</output
+                      ><input
+                        id="bg-gain"
+                        type="range"
+                        min="-36"
+                        max="0"
+                        step="1"
+                        value="-18"
+                      /><small
+                        >Konuşmanın arkasında kalması için kısık tutun.</small
+                      ></label
+                    ><label for="song-gain"
+                      >Şarkı sesi <output id="song-gain-value">100%</output
+                      ><input
+                        id="song-gain"
+                        type="range"
+                        min="-12"
+                        max="6"
+                        step="0.5"
+                        value="0"
+                      /><small
+                        >100%: önerilen ses seviyesini korur.</small
+                      ></label
+                    >
+                  </div>
+                  <button id="reset-settings" class="text-button">
+                    Önerilen geçiş ve ses ayarlarına dön
+                  </button>
+                </div>
+              </details>
+              <div class="cut-row">
+                <label for="cut-mode">Reklam nerede başlasın?</label
+                ><select id="cut-mode">
+                  <option value="half">Şarkının tam ortasında</option>
+                  <option value="manual">Zamanı ben seçeyim</option>
+                </select>
+              </div>
+              <div id="manual-cut" class="manual-time hidden">
+                <label for="cut-second">Dakika : saniye</label
+                ><input
+                  id="cut-second"
+                  type="text"
+                  inputmode="decimal"
+                  value="01:00"
+                  placeholder="01:30"
+                  maxlength="12"
+                /><span>Örn. 01:30 = 1 dakika 30 saniye</span>
+              </div>
+              <p
+                id="transition-error"
+                class="field-error hidden"
+                role="alert"
+              ></p>
+            </div>
+            <div class="simple-tip">
+              <svg class="icon"><use href="#i-mic" /></svg
+              ><span
+                >Jenerik sesi tamamen okunur. Siyah ekran sesinize göre
+                uzar.</span
+              >
+            </div>
+          </section>
+          <section
+            class="wizard-panel review-panel hidden"
+            id="result-screen"
+            data-panel="4"
+            aria-labelledby="result-heading"
+          >
+            <div class="page-heading">
+              <span class="step-caption" id="result-caption"
+                >HER ŞEY HAZIR</span
+              >
+              <h1 id="result-heading" tabindex="-1">
+                Kontrol edin, videonuz hazır olsun.
+              </h1>
+              <p id="result-subtitle">
+                Dosya adını ve kayıt yerini seçin. Gerisini Kutarya hazırlasın.
+              </p>
+            </div>
+            <div
+              id="render-status"
+              class="render-status hidden"
+              aria-live="polite"
+            >
+              <span id="render-icon" class="status-icon"></span>
+              <div>
+                <strong id="render-title">Videonuz hazırlanıyor</strong>
+                <p id="render-detail"></p>
+                <progress id="render-progress" max="100" value="0"></progress>
+              </div>
+              <button id="cancel-current" class="quiet-button">Durdur</button>
+            </div>
+            <div
+              id="batch-results"
+              class="batch-results hidden"
+              aria-label="Hazırlanan videolar"
+            ></div>
+            <div class="review-grid">
+              <div class="review-left">
+                <div class="preview-card">
+                  <div class="section-row preview-top">
+                    <h2 id="preview-badge">Kurgu planı</h2>
+                    <span id="timeline-duration" class="muted">Otomatik</span>
+                  </div>
+                  <div class="video-stage" id="video-stage">
+                    <video
+                      id="video-preview"
+                      controls
+                      preload="metadata"
+                      class="hidden"
+                    ></video>
+                    <div id="video-placeholder">
+                      <span class="large-play"
+                        ><svg class="icon"><use href="#i-play" /></svg></span
+                      ><strong>Şarkınız kısa bir ara verir.</strong>
+                      <p>Mesajınız duyulur. Şarkı devam eder.</p>
+                      <small
+                        >Oluşturduğunuz videoyu burada izleyeceksiniz.</small
+                      >
+                    </div>
+                  </div>
+                  <div class="preview-info hidden" id="preview-info">
+                    <strong id="preview-name"></strong
+                    ><span id="preview-meta"></span
+                    ><button id="jump-to-ad" class="text-button hidden">
+                      <svg class="icon"><use href="#i-play" /></svg>Reklam
+                      arasını izle
+                    </button>
+                  </div>
+                </div>
+                <div class="timeline-card">
+                  <div class="timeline-track">
+                    <div class="song-segment">
+                      <svg class="icon"><use href="#i-music" /></svg
+                      ><strong>Şarkı</strong><span>İlk bölüm</span>
+                    </div>
+                    <span class="track-arrow">→</span>
+                    <div class="jingle-segment">
+                      <svg class="icon"><use href="#i-mic" /></svg
+                      ><strong>Jenerik</strong
+                      ><span id="timeline-voice-label">Siyah ekran</span>
+                    </div>
+                    <span class="track-arrow">→</span>
+                    <div class="song-segment">
+                      <svg class="icon"><use href="#i-music" /></svg
+                      ><strong>Şarkı</strong><span>Devamı</span>
+                    </div>
+                  </div>
+                  <div class="timing-grid">
+                    <span>Reklam başlar <b id="cut-info">Tam ortada</b></span
+                    ><span>Reklam arası <b id="gap-info">Ses kadar</b></span>
+                  </div>
+                </div>
+              </div>
+              <div class="surface export-card" id="output-card">
+                <h2 id="output-heading">Video nasıl kaydedilsin?</h2>
+                <div id="export-settings">
+                  <div id="output-names"></div>
+                  <label class="field-label">Kaydedileceği klasör</label>
+                  <div class="destination">
+                    <div>
+                      <svg class="icon"><use href="#i-folder" /></svg
+                      ><strong id="output-dir"></strong
+                      ><button id="change-folder" class="text-button">
+                        Değiştir
+                      </button>
+                    </div>
+                  </div>
+                  <label class="field-label" for="output-height"
+                    >Video kalitesi</label
+                  ><select id="output-height">
+                    <option value="1080">1080p · Yüksek kalite</option>
+                    <option value="720">
+                      720p · Daha hızlı hazırlanır
+                    </option></select
+                  ><label class="mp3-option"
+                    ><input id="also-mp3" type="checkbox" checked /><span
+                      >Ayrıca MP3 ses dosyası kaydet<small
+                        >Aynı ad ve klasörle kaydedilir.</small
+                      ></span
+                    ></label
+                  >
+                  <div class="planned-file">
+                    <span>KAYDEDİLECEK DOSYA</span
+                    ><strong id="planned-name">—</strong
+                    ><small id="planned-extra"></small>
+                  </div>
+                </div>
+                <div id="output-result" class="hidden">
+                  <div class="result-file">
+                    <span>VİDEO DOSYASI</span
+                    ><strong id="finished-name"></strong
+                    ><small id="finished-path"></small>
+                  </div>
+                  <div id="finished-mp3" class="result-file hidden"></div>
+                  <div class="result-stats" id="result-stats"></div>
+                  <button id="reveal-current" class="primary-button">
+                    <svg class="icon"><use href="#i-folder" /></svg>Klasörde
+                    göster</button
+                  ><button id="new-song-inline" class="quiet-button">
+                    <svg class="icon"><use href="#i-plus" /></svg>Yeni şarkıyla
+                    devam et
+                  </button>
+                </div>
+                <div class="review-summary">
+                  <div>
+                    <span>Şarkı</span><strong id="summary-song">—</strong
+                    ><button data-edit-step="1" aria-label="Şarkıyı değiştir">
+                      Değiştir
+                    </button>
+                  </div>
+                  <div>
+                    <span>Jenerik</span><strong id="summary-speech">—</strong
+                    ><button data-edit-step="2" aria-label="Jeneriği değiştir">
+                      Değiştir
+                    </button>
+                  </div>
+                  <div>
+                    <span>Fon</span><strong id="summary-bg">—</strong
+                    ><button data-edit-step="3" aria-label="Fonu değiştir">
+                      Değiştir
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section id="jobs-view" class="jobs-view hidden">
+          <div class="page-heading">
+            <span class="step-caption">KUTARYA JENERİK</span>
+            <div class="section-row">
+              <div>
+                <h1>Kurgularım</h1>
+                <p>Devam eden işler ve hazırladığınız videolar.</p>
+              </div>
+              <button id="back-editor" class="quiet-button">
+                <svg class="icon"><use href="#i-back" /></svg>Kurguya dön
+              </button>
+            </div>
+          </div>
+          <div class="jobs-tabs">
+            <button data-view="queue" class="selected">
+              Devam edenler <span id="jobs-active-count">0</span></button
+            ><button data-view="archive">
+              Tamamlananlar <span id="done-count">0</span>
+            </button>
+          </div>
+          <div class="jobs-toolbar">
+            <input
+              id="job-search"
+              type="search"
+              placeholder="Şarkı adıyla ara"
+              aria-label="Kurgular arasında ara"
+            /><select id="job-filter" aria-label="İş durumu">
+              <option value="all">Tüm işler</option>
+              <option value="active">Sırada / hazırlanıyor</option>
+              <option value="failed">Kontrol bekleyen</option></select
+            ><button id="cancel-all" class="quiet-button">Kuyruğu durdur</button
+            ><button id="open-folder" class="quiet-button">
+              <svg class="icon"><use href="#i-folder" /></svg>Çıktı klasörü
+            </button>
+          </div>
+          <div id="all-jobs" class="jobs-list"></div>
+        </section>
+      </main>
+      <div id="audio-player" class="audio-player hidden">
+        <div>
+          <svg class="icon"><use href="#i-music" /></svg>
+          <strong id="audio-name">Ses önizlemesi</strong>
+        </div>
+        <audio id="speech-audio" controls></audio>
+        <button
+          id="close-audio"
+          class="icon-button"
+          aria-label="Ses oynatıcısını kapat"
+        >
+          ×
+        </button>
+      </div>
+      <footer id="production-bar" class="wizard-footer">
+        <div class="footer-inner">
+          <button id="previous-step" class="quiet-button">
+            <svg class="icon"><use href="#i-back" /></svg>Geri
+          </button>
+          <div class="footer-hint">
+            <strong id="ready-title">Şarkıyı seçerek başlayın</strong
+            ><span id="ready-detail"
+              >Her adımda yalnız gerekenleri doldurun.</span
+            >
+          </div>
+          <button id="next-step" class="primary-button">
+            <span id="next-label">Jeneriğe geç</span
+            ><svg class="icon"><use href="#i-arrow" /></svg></button
+          ><button id="create" class="primary-button hidden">
+            <svg class="icon"><use href="#i-spark" /></svg
+            ><span id="create-label">Videoyu oluştur</span></button
+          ><button id="new-song" class="primary-button hidden">
+            <svg class="icon"><use href="#i-plus" /></svg>Yeni şarkı hazırla</button
+          ><button id="retry-current" class="primary-button hidden">
+            Yeniden dene
+          </button>
+        </div>
+      </footer>
+      <div class="app-footer">
+        <span>Bir Kutarya ürünü · <b id="app-version">1.3.0</b></span
+        ><span id="engine-status">Hazır olduğunuzda başlayalım.</span>
+      </div>
+    </div>
+    <div id="toast" class="toast hidden" role="status"></div>
+    <dialog id="eleven-dialog" class="modal">
+      <form id="eleven-form">
+        <div class="modal-heading">
+          <span class="step-caption">ELEVENLABS</span
+          ><button
+            type="button"
+            data-close-dialog="eleven-dialog"
+            class="icon-button"
+            aria-label="Pencereyi kapat"
+          >
+            ×
+          </button>
+        </div>
+        <h2>Aktör seslerinizi bağlayın.</h2>
+        <p>Hesabınızdaki kadın ve erkek sesleri buradan seçebilirsiniz.</p>
+        <label class="field-label" for="eleven-key">API anahtarınız</label
+        ><input
+          id="eleven-key"
+          type="password"
+          autocomplete="off"
+          placeholder="ElevenLabs anahtarını yapıştırın"
+          spellcheck="false"
+        /><label class="remember-option"
+          ><input id="eleven-remember" type="checkbox" /><span
+            >Bu bilgisayarda hatırla<small
+              >Windows ile şifrelenerek saklanır.</small
+            ></span
+          ></label
+        >
+        <p class="privacy-note">
+          Ses oluşturma hesabınızdaki krediyi kullanır. Anahtar kurgu
+          dosyalarına eklenmez.
+        </p>
+        <p id="eleven-error" class="field-error hidden" role="alert"></p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            id="eleven-disconnect"
+            class="text-button hidden"
+          >
+            Bağlantıyı kaldır</button
+          ><button
+            type="button"
+            data-close-dialog="eleven-dialog"
+            class="quiet-button"
+          >
+            Vazgeç</button
+          ><button type="submit" id="eleven-submit" class="primary-button">
+            Hesabı bağla
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="help-dialog" class="modal">
+      <div class="modal-heading">
+        <span class="step-caption">İLK VİDEONUZ</span
+        ><button
+          data-close-dialog="help-dialog"
+          class="icon-button"
+          aria-label="Pencereyi kapat"
+        >
+          ×
+        </button>
+      </div>
+      <h2>Bir adım, bir ekran.</h2>
+      <ol class="help-steps">
+        <li>
+          <strong>Şarkıyı seçin.</strong>
+          <p>
+            İsmini yazın veya YouTube bağlantısını ekleyin. Bilgisayarınızdan da
+            seçebilirsiniz.
+          </p>
+        </li>
+        <li>
+          <strong>Jeneriği hazırlayın.</strong>
+          <p>Metni yazıp ses seçin ya da hazır reklam sesinizi kullanın.</p>
+        </li>
+        <li>
+          <strong>Fonu ve geçişleri seçin.</strong>
+          <p>
+            Fon isteğe bağlı. Önerilen geçişler hazır; dilerseniz kendiniz
+            ayarlayın.
+          </p>
+        </li>
+        <li>
+          <strong>Adını seçip oluşturun.</strong>
+          <p>
+            Dosya adı ve kayıt klasörü son ekranda. Video hazır olunca aynı
+            yerde izleyin.
+          </p>
+        </li>
+      </ol>
+      <div class="help-tip">
+        <strong>Birçok şarkı, her birine ayrı jenerik</strong>
+        <p>
+          “Şarkı ekle” ile her şarkıya ayrı kutu açın. Jenerik ekranında
+          şarkıları sırayla seçip seslerini hazırlayın. Fon tüm videolarda
+          ortaktır; son ekranda her videonun dosya adını yazın.
+        </p>
+      </div>
+      <button data-close-dialog="help-dialog" class="primary-button">
+        Tamam, başlayalım <svg class="icon"><use href="#i-arrow" /></svg>
+      </button>
+    </dialog>
+    <script src="batch-ui.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

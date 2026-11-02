@@ -1,0 +1,56 @@
+{
+  "appId": "com.kutarya.jenerik",
+  "productName": "Kutarya Jenerik",
+  "executableName": "KutaryaJenerik",
+  "directories": {
+    "output": "../Paketler",
+    "buildResources": "build"
+  },
+  "files": [
+    "electron/**/*",
+    "ui/**/*",
+    "scripts/fixtures.cjs",
+    "package.json"
+  ],
+  "extraResources": [
+    {
+      "from": "vendor",
+      "to": "vendor",
+      "filter": [
+        "*.exe",
+        "*.dll",
+        "*.json",
+        "*.ps1",
+        "licenses/**/*"
+      ]
+    }
+  ],
+  "asar": true,
+  "win": {
+    "icon": "build/icon.ico",
+    "target": [
+      "nsis"
+    ],
+    "signExecutable": false
+  },
+  "portable": {
+    "artifactName": "Kutarya-Jenerik-${version}.${ext}",
+    "requestExecutionLevel": "user"
+  },
+  "nsis": {
+    "artifactName": "Kutarya-Jenerik-Setup-${version}.exe",
+    "oneClick": false,
+    "perMachine": false,
+    "allowElevation": false,
+    "allowToChangeInstallationDirectory": true,
+    "runAfterFinish": false,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Kutarya Jenerik",
+    "deleteAppDataOnUninstall": false,
+    "installerLanguages": [
+      "tr_TR"
+    ],
+    "packElevateHelper": false
+  }
+}

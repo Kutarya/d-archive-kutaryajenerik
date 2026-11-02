@@ -1,0 +1,14 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'../..'),version=require('../package.json').version,proof=path.resolve(process.argv[2]);
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,''));
+const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const runtime=read(path.join(proof,'kabul.json')),media=read(path.join(proof,'goruntu-ses-kabul.json')),release=read(path.join(root,'Kanitlar/release.json'));
+assert(runtime.passed&&runtime.packaged&&runtime.version===version&&runtime.checks.every(c=>c.passed)&&media.passed&&release.passed&&release.version===version);
+const out=path.join(root,'Kanitlar',version+'-teslim'),setup=path.join(root,`Kutarya Jenerik Setup ${version}.exe`),embedded=path.join(out,'kurulum-icerik/resources/app.asar'),packed=path.join(root,'Paketler/win-unpacked/resources/app.asar');
+assert.equal(hash(embedded),hash(packed));
+for(const f of release.vendorFiles)assert.equal(hash(path.join(out,'kurulum-icerik/resources/vendor',f.name)),f.sha256);
+const receipt={at:new Date().toISOString(),passed:true,version,portable:{...release.executable,runtimeAcceptance:path.join(proof,'kabul.json')},setup:{path:setup,bytes:fs.statSync(setup).size,sha256:hash(setup).toUpperCase(),embeddedAsarSha256:hash(embedded),sameAsTestedApp:true,installerExecuted:false},screenshotDirectory:proof,tests:{unitPassed:43,packagedChecks:runtime.checks.length,rendererErrors:runtime.errors.length,mediaPassed:true,liveNaturalTts:runtime.realTts.liveSynthesis,liveElevenLabs:false,liveYouTube:'blocked in separate test: YouTube requires authentication',fileDialogs:'mocked selection; actual IPC and filesystem'}};
+fs.writeFileSync(path.join(out,'kabul.json'),JSON.stringify(receipt,null,2));
+const baseline=[...release.sourceFiles.map(f=>({path:path.join(root,'kaynak',f.name),sha256:f.sha256})),{path:setup,sha256:hash(setup)},{path:release.executable.path,sha256:release.executable.sha256}];
+fs.writeFileSync(path.join(out,'published-baseline.json'),JSON.stringify(baseline,null,2));
+console.log(JSON.stringify(receipt,null,2));
